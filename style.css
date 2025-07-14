@@ -1,0 +1,12 @@
+body {
+    background: #fb3fb0;
+    background: radial-gradient(circle, rgba(251, 63, 176, 1) 0%, rgba(204, 153, 167, 1) 100%); 
+}
+
+.navbar {
+    background-color: black;
+     filter: blur(8px);
+    -webkit-filter: blur(8px);
+    width: 400px;
+    height: 100px;
+}
