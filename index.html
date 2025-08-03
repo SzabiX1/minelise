@@ -1,34 +1,900 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MineLise</title>
+    <link rel="shortcut icon" href="file_0000000017146243b14f1bd37d22d781_1.png" type="image/x-icon">
+    <title>Crystal Craft SkyPvP - Ranglista Szerver</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Nunito:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --crystal-purple: #8a4fff;
+            --crystal-blue: #5bc0eb;
+            --crystal-yellow: #ffd166;
+            --crystal-dark: #1a0b2e;
+            --crystal-light: #f0e6ff;
+            --sky-blue: #87CEEB;
+            --cloud-white: #f8f9fa;
+            --pvp-red: #ff4d4d;
+            --discord-purple: #5865F2;
+            --leaderboard-gold: #FFD700;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to bottom, #1a0b2e, #2d1b50);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(138, 79, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(91, 192, 235, 0.1) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Fejléc */
+        header {
+            background: rgba(26, 11, 46, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            border-bottom: 2px solid var(--crystal-yellow);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(138, 79, 255, 0.5);
+        }
+
+        .logo span {
+            color: var(--crystal-yellow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #e6f7ff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--crystal-yellow);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--crystal-yellow);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--crystal-yellow), #e0a020);
+            color: #2a2a2a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 209, 102, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 209, 102, 0.6);
+            background: linear-gradient(135deg, #ffe066, #ffb93c);
+        }
+
+        .discord-button {
+            background: linear-gradient(135deg, var(--discord-purple), #4a5beb);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .discord-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.6);
+            background: linear-gradient(135deg, #6a7aff, #4a5beb);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            background: linear-gradient(rgba(26, 11, 46, 0.85), rgba(26, 11, 46, 0.9)), 
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 25px;
+            font-weight: 800;
+            color: var(--crystal-yellow);
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1 span {
+            color: var(--crystal-blue);
+            display: block;
+            font-size: 4.5rem;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            color: #e6f7ff;
+            line-height: 1.7;
+            max-width: 700px;
+            background: rgba(45, 27, 80, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--crystal-yellow);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Kristály animációk */
+        .crystal {
+            position: absolute;
+            z-index: 1;
+            animation: float 8s infinite ease-in-out;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+        }
+
+        .crystal-1 {
+            width: 80px;
+            height: 80px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+            color: var(--crystal-purple);
+        }
+
+        .crystal-2 {
+            width: 70px;
+            height: 70px;
+            top: 70%;
+            right: 15%;
+            animation-delay: 1s;
+            color: var(--crystal-blue);
+        }
+
+        .crystal-3 {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 2s;
+            color: var(--crystal-yellow);
+        }
+
+        .sky-island {
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            background: linear-gradient(135deg, #3ab34a, #2c8a3a);
+            border-radius: 50px;
+            animation: float 15s infinite ease-in-out;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .island-1 {
+            top: 20%;
+            right: 10%;
+            animation-delay: 0s;
+            width: 180px;
+            height: 80px;
+        }
+
+        .island-2 {
+            bottom: 30%;
+            left: 10%;
+            animation-delay: 2s;
+            width: 220px;
+            height: 90px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #1a0b2e;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--crystal-yellow);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--crystal-purple);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #ccefff;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(45, 27, 80, 0.8);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--crystal-yellow);
+            transform: translateY(-100%);
+            transition: transform 0.4s ease;
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--crystal-purple);
+            box-shadow: 0 15px 30px rgba(138, 79, 255, 0.3);
+        }
+
+        .feature-card:hover:before {
+            transform: translateY(0);
+        }
+
+        .feature-icon {
+            font-size: 4.5rem;
+            color: var(--crystal-yellow);
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(255, 209, 102, 0.7);
+        }
+
+        .feature-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card p {
+            color: #e0d1ff;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .pvp-badge {
+            display: inline-block;
+            background: var(--pvp-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .leaderboard-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--leaderboard-gold), #e0a020);
+            color: #2a2a2a;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        /* Join Section */
+        .join {
+            padding: 100px 0;
+            background: #1a0b2e;
+            text-align: center;
+            position: relative;
+        }
+
+        .join-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .step {
+            max-width: 250px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--crystal-purple), #6a3fcc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 25px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(138, 79, 255, 0.5);
+            border: 2px solid var(--crystal-yellow);
+            color: var(--crystal-yellow);
+        }
+
+        .step-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--crystal-yellow);
+        }
+
+        .step-content p {
+            color: #e0d1ff;
+            line-height: 1.6;
+        }
+
+        .server-address {
+            background: rgba(138, 79, 255, 0.15);
+            border: 2px dashed var(--crystal-yellow);
+            padding: 15px 30px;
+            margin: 50px auto 0;
+            max-width: 500px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            color: var(--crystal-yellow);
+            letter-spacing: 2px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-address:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(91, 192, 235, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .server-address:hover:before {
+            left: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background: #140a25;
+            padding: 70px 0 30px;
+            border-top: 2px solid var(--crystal-yellow);
+            position: relative;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--crystal-yellow);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--crystal-purple);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            color: #d0c0ff;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: rgba(138, 79, 255, 0.2);
+            color: var(--crystal-yellow);
+            border-radius: 50%;
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 209, 102, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-icons a.discord {
+            background: rgba(88, 101, 242, 0.2);
+            border-color: rgba(88, 101, 242, 0.5);
+        }
+        
+        .social-icons a.instagram {
+            background: rgba(193, 53, 132, 0.2);
+            border-color: rgba(193, 53, 132, 0.5);
+        }
+        
+        .social-icons a.tiktok {
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .social-icons a:hover {
+            background: var(--crystal-purple);
+            color: white;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(138, 79, 255, 0.4);
+        }
+        
+        .social-icons a.discord:hover {
+            background: var(--discord-purple);
+        }
+        
+        .social-icons a.instagram:hover {
+            background: #C13584;
+        }
+        
+        .social-icons a.tiktok:hover {
+            background: #000;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 50px;
+            border-top: 1px solid rgba(138, 79, 255, 0.3);
+            color: #a090c0;
+            font-size: 0.9rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero h1 span {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero h1 span {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .social-icons a {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .join-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .social-icons {
+                flex-wrap: wrap;
+            }
+            
+            .social-icons a {
+                width: 65px;
+                height: 65px;
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar-div">
-        <img src="file_0000000017146243b14f1bd37d22d781_1.png" class="logo" alt="">
-    <div class="navbar">
-        
-        <a href="" class="home">Kezdőlap</a>
-        <a href="" class="info">Információk</a>
-        
+    <!-- Kristályok és szigetek -->
+    <div class="crystal crystal-1">
+        <i class="fas fa-gem"></i>
     </div>
+    <div class="crystal crystal-2">
+        <i class="fas fa-gem"></i>
     </div>
+    <div class="crystal crystal-3">
+        <i class="fas fa-gem"></i>
+    </div>
+    
+    <div class="sky-island island-1"></div>
+    <div class="sky-island island-2"></div>
 
-<div class="welcome">
-    <span class="welcome-title-1">Mine</span>
-    <span class="welcome-title-2">Lise</span>
+    <!-- Fejléc -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">CRYSTAL<span>CRAFT</span></div>
+                <div class="nav-links">
+                    <a href="#home">Kezdőlap</a>
+                    <a href="#features">Jellemzők</a>
+                    <button class="cta-button" href="#join">JÁTÉK MOST</button>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-</div>
+    <!-- Hero rész -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Üdv a <span>CRYSTALCRAFT</span> SkyPvP világában!</h1>
+                <p>Harcolj más játékosokkal az egekben! Csatlakozz most, és légy a legjobb SkyPvP harcos!</p>
+                <div class="hero-buttons">
+                    <button class="cta-button" href="#join">CSATLAKOZÁS MOST</button>
+                    <button class="discord-button"><i class="fab fa-discord"></i> Discord</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- SkyPvP jellemzők rész -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>SkyPvP Jellemzők</h2>
+                <p>A legizgalmasabb SkyPvP élmény Minecraftban!</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-fist-raised"></i>
+                    </div>
+                    <h3>Intenzív PvP Harcok</h3>
+                    <p>Készülj fel adrenalindús összecsapásokra! Nálunk a harc valóban számít - mutasd meg, ki a legjobb!</p>
+                    <div class="pvp-badge">PVP</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Egyedi SkyPvP Szigetek</h3>
+                    <p>Találj értékes jutalmakat, és küzdj az egyedi, és menő szigeteken. </p>
+                    <div class="pvp-badge">ÉPÍTÉS</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Ranglista</h3>
+                    <p>Versenyezz a legjobbakkal! Nézd meg, hol állsz a ranglistán, és küzdj a dicsőségért!</p>
+                    <div class="leaderboard-badge">RANGLISTA</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<button class="dc">
+    <!-- Csatlakozás rész -->
+    <section class="join" id="join">
+        <div class="container">
+            <div class="section-title">
+                <h2>Hogyan csatlakozol?</h2>
+                <p>Csak néhány egyszerű lépésre van tőled a SkyPvP kaland</p>
+            </div>
+            
+            <div class="join-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Nyisd meg a Minecraftot</h3>
+                        <p>Indítsd el a Minecraft Java Edition alkalmazást a számítógépeden.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Lépj a Multiplayerbe</h3>
+                        <p>A főmenüben válaszd a "Multiplayer" opciót, majd az "Add Server" gombot.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Add meg a szerver adatait</h3>
+                        <p>A "Server Address" mezőbe írd be a szerver címét és kattints a "Done" gombra.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Csatlakozz és harcolj!</h3>
+                        <p>Válaszd ki a Crystal Craft szervert a listából és kattints a "Join Server" gombra.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="server-address">
+                sky.crystalcraft.minecraft.hu
+            </div>
+        </div>
+    </section>
 
-    <a href="" class="dc-a">Discord</a>
+    <!-- Lábléc -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Crystal Craft SkyPvP</h3>
+                    <p>A legizgalmasabb SkyPvP élmény Minecraftban! Építs, gyűjts, harcolj és uralkodj az egekben! Csatlakozz most, és légy a legjobb SkyPvP harcos!</p>
+                    
+                    <div class="social-icons">
+                        <a href="#" title="Discord" class="discord">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" title="Instagram" class="instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" title="TikTok" class="tiktok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 CrystalCraft SkyPvP Minecraft Szerver. Minden jog fenntartva. A Minecraft egy Mojang AB védjegye.
+            </div>
+        </div>
+    </footer>
 
-</button>
-
+    <script>
+        // Animációk kezelése
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animációk hozzáadása a görgetéshez
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            // Megfigyelendő elemek
+            document.querySelectorAll('.feature-card, .step').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Sima görgetés navigációhoz
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
