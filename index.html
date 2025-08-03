@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="file_0000000017146243b14f1bd37d22d781_1.png" type="image/x-icon">
-    <title>Crystal Craft SkyPvP - Ranglista Szerver</title>
+    <title>CrystalCraft</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Nunito:wght@700&display=swap" rel="stylesheet">
     <style>
+        a:link {
+            text-decoration: none;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -25,6 +29,7 @@
             --pvp-red: #ff4d4d;
             --discord-purple: #5865F2;
             --leaderboard-gold: #FFD700;
+            --blue: #0e6ae4;
         }
 
         body {
@@ -128,8 +133,6 @@
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 209, 102, 0.6);
-            background: linear-gradient(135deg, #ffe066, #ffb93c);
         }
 
         .discord-button {
@@ -696,6 +699,10 @@
                 font-size: 1.8rem;
             }
         }
+
+        .a-game {
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -721,7 +728,7 @@
                 <div class="nav-links">
                     <a href="#home">Kezdőlap</a>
                     <a href="#features">Jellemzők</a>
-                    <button class="cta-button" href="#join">JÁTÉK MOST</button>
+                    <button class="cta-button"><a href="#join" >JÁTÉK MOST</a></button>
                 </div>
             </nav>
         </div>
@@ -734,8 +741,10 @@
                 <h1>Üdv a <span>CRYSTALCRAFT</span> SkyPvP világában!</h1>
                 <p>Harcolj más játékosokkal az egekben! Csatlakozz most, és légy a legjobb SkyPvP harcos!</p>
                 <div class="hero-buttons">
-                    <button class="cta-button" href="#join">CSATLAKOZÁS MOST</button>
-                    <button class="discord-button"><i class="fab fa-discord"></i> Discord</button>
+                    <button class="cta-button" ><a class="cta-button" href="#join">CSATLAKOZÁS MOST</a></button>
+                    <a href="https://discord.gg/Md4ZkvUegD" class="discord-button" target="_blank" rel="noopener noreferrer">
+  <i class="fab fa-discord"></i> Discord
+</a>
                 </div>
             </div>
         </div>
@@ -823,27 +832,27 @@
             </div>
             
             <div class="server-address">
-                sky.crystalcraft.minecraft.hu
+                Hamarosan...
             </div>
         </div>
     </section>
 
-    <!-- Lábléc -->
+    <section id="social">
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Crystal Craft SkyPvP</h3>
+                    <h3>CrystalCraft SkyPvP</h3>
                     <p>A legizgalmasabb SkyPvP élmény Minecraftban! Építs, gyűjts, harcolj és uralkodj az egekben! Csatlakozz most, és légy a legjobb SkyPvP harcos!</p>
                     
                     <div class="social-icons">
-                        <a href="#" title="Discord" class="discord">
+                        <a href="https://discord.gg/Md4ZkvUegD" title="Discord" class="discord" target="_blank">
                             <i class="fab fa-discord"></i>
                         </a>
-                        <a href="#" title="Instagram" class="instagram">
+                        <a href="#" title="Instagram" class="instagram" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" title="TikTok" class="tiktok">
+                        <a href="#" title="TikTok" class="tiktok" target="_blank">
                             <i class="fab fa-tiktok"></i>
                         </a>
                     </div>
@@ -855,6 +864,7 @@
             </div>
         </div>
     </footer>
+    </section>
 
     <script>
         // Animációk kezelése
